@@ -28,82 +28,11 @@ abstract class FlTouchEvent {
     if (isDesktopOrWeb && this is FlTapUpEvent) {
       return true;
     }
-
-    return this is! FlPanEndEvent &&
-        this is! FlPanCancelEvent &&
-        this is! FlPointerExitEvent &&
+    return this is! FlPointerExitEvent &&
         this is! FlLongPressEnd &&
         this is! FlTapUpEvent &&
         this is! FlTapCancelEvent;
   }
-}
-
-/// When a pointer has contacted the screen and might begin to move
-///
-/// The [details] object provides the position of the touch.
-/// Inspired from [GestureDragDownCallback]
-class FlPanDownEvent extends FlTouchEvent {
-  const FlPanDownEvent(this.details);
-
-  /// Contains information of happened touch gesture
-  final DragDownDetails details;
-
-  /// Represents the position of happened touch/pointer event
-  @override
-  Offset get localPosition => details.localPosition;
-}
-
-/// When a pointer has contacted the screen and has begun to move.
-///
-/// The [details] object provides the position of the touch when it first
-/// touched the surface.
-/// Inspired from [GestureDragStartCallback].
-class FlPanStartEvent extends FlTouchEvent {
-  /// Creates
-  const FlPanStartEvent(this.details);
-
-  /// Contains information of happened touch gesture
-  final DragStartDetails details;
-
-  /// Represents the position of happened touch/pointer event
-  @override
-  Offset get localPosition => details.localPosition;
-}
-
-/// When a pointer that is in contact with the screen and moving
-/// has moved again.
-///
-/// The [details] object provides the position of the touch and the distance it
-/// has traveled since the last update.
-/// Inspired from [GestureDragUpdateCallback]
-class FlPanUpdateEvent extends FlTouchEvent {
-  const FlPanUpdateEvent(this.details);
-
-  /// Contains information of happened touch gesture
-  final DragUpdateDetails details;
-
-  /// Represents the position of happened touch/pointer event
-  @override
-  Offset get localPosition => details.localPosition;
-}
-
-/// When the pointer that previously triggered a [FlPanStartEvent] did not complete.
-/// Inspired from [GestureDragCancelCallback]
-class FlPanCancelEvent extends FlTouchEvent {
-  const FlPanCancelEvent();
-}
-
-/// When a pointer that was previously in contact with the screen
-/// and moving is no longer in contact with the screen.
-///
-/// The velocity at which the pointer was moving when it stopped contacting
-/// the screen is available in the [details].
-/// Inspired from [GestureDragEndCallback]
-class FlPanEndEvent extends FlTouchEvent {
-  const FlPanEndEvent(this.details);
-
-  /// Contains information of happened touch gesture
-  final DragEndDetails details;
 }
 
 /// When a pointer that might cause a tap has contacted the
